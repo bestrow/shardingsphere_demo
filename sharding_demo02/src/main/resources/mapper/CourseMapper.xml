@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sharding_demo.mapper.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.example.sharding_demo.entity.Course">
+    <id column="cid" jdbcType="BIGINT" property="cid" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="cstatus" jdbcType="VARCHAR" property="cstatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cid, cname, user_id, cstatus
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where cid = #{cid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from course
+    where cid = #{cid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.sharding_demo.entity.Course">
+    insert into course (cname, user_id, cstatus)
+    values (#{cname,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT},
+      #{cstatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.sharding_demo.entity.Course">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="cname != null">
+        cname,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="cstatus != null">
+        cstatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="cname != null">
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="cstatus != null">
+        #{cstatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.sharding_demo.entity.Course">
+    update course
+    <set>
+      <if test="cname != null">
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="cstatus != null">
+        cstatus = #{cstatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.sharding_demo.entity.Course">
+    update course
+    set cname = #{cname,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      cstatus = #{cstatus,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=BIGINT}
+  </update>
+</mapper>
