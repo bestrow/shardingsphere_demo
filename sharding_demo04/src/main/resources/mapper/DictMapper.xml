@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sharding_demo.mapper.DictMapper">
+  <resultMap id="BaseResultMap" type="com.example.sharding_demo.entity.Dict">
+    <!--@mbg.generated-->
+    <!--@Table dict-->
+    <id column="dict_id" jdbcType="BIGINT" property="dictId" />
+    <result column="dict_name" jdbcType="VARCHAR" property="dictName" />
+    <result column="dict_value" jdbcType="VARCHAR" property="dictValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    dict_id, dict_name, dict_value
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from dict
+    where dict_id = #{dictId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from dict
+    where dict_id = #{dictId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.sharding_demo.entity.Dict">
+    <!--@mbg.generated-->
+    insert into dict (dict_name, dict_value)
+    values (#{dictName,jdbcType=VARCHAR}, #{dictValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.sharding_demo.entity.Dict">
+    <!--@mbg.generated-->
+    insert into dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dictId != null">
+        dict_id,
+      </if>
+      <if test="dictName != null and dictName != ''">
+        dict_name,
+      </if>
+      <if test="dictValue != null and dictValue != ''">
+        dict_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dictId != null">
+        #{dictId,jdbcType=BIGINT},
+      </if>
+      <if test="dictName != null and dictName != ''">
+        #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="dictValue != null and dictValue != ''">
+        #{dictValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.sharding_demo.entity.Dict">
+    <!--@mbg.generated-->
+    update dict
+    <set>
+      <if test="dictName != null and dictName != ''">
+        dict_name = #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="dictValue != null and dictValue != ''">
+        dict_value = #{dictValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dict_id = #{dictId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.sharding_demo.entity.Dict">
+    <!--@mbg.generated-->
+    update dict
+    set dict_name = #{dictName,jdbcType=VARCHAR},
+      dict_value = #{dictValue,jdbcType=VARCHAR}
+    where dict_id = #{dictId,jdbcType=BIGINT}
+  </update>
+</mapper>
